@@ -1,0 +1,30 @@
+Requisitos Prof. Marcos:
+
+-O que colocar no museu?
+
+
+-Que informações serão guardadas?
+
+
+-Quem poderá colocar itens no museu?
+
+
+-Um usúario que visualiza um item tem que interação com ele?
+
+-------------------
+
+conceituação museológica
+
+de acordo com o prof:
+
+
+Objetivos:
+*Criar um espaço virtual sobre os aspectos históricos de sua instituição de ensino;
+*Catalogar, preservar e divulgar a história da instituição(museu);
+
+
+administradores
+filtro de colaboradores
+compartilhar fotos
+
+

@@ -1,0 +1,23 @@
+.times {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    background: white;
+}
+
+.opacidade-anim{
+    opacity: 0;
+    animation-name: opacidade-anim;
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes opacidade-anim{
+    from{
+       opacity: 0; 
+    }
+    to {
+        opacity: 1;
+    }
+}
