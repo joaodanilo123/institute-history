@@ -5,5 +5,5 @@
     <a href="#">Nova Memória</a>
 </li>
 <li>
-    <a href="#">Nova Foto</a>
+    <a href="nova-foto.php">Nova Foto</a>
 </li>

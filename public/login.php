@@ -9,7 +9,8 @@ $usuario_logado = false;
 <html>
 
 <head>
-<?php include "./Components/html-head.php" ?>
+    <?php include "./Components/html-head.php" ?>
+    <title>Login - Institute History</title>
 </head>
 
 <body>
@@ -36,9 +37,7 @@ $usuario_logado = false;
                 <?php if (isset($_SESSION['erro_de_login'])) : ?>
                     <span class="badge red white-text">Email ou senha incorretos</span>
                     <?php session_destroy(); ?>
-                <?php endif;
-                ?>
-
+                <?php endif; ?>
             </div>
             <div class="col s12 m6">
                 <div class="container">

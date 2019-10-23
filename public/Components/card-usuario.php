@@ -15,7 +15,7 @@
         <a href="#">Nova Memória</a>
     </div>
     <div class="card-action">
-        <a href="#">Nova Foto</a>
+        <a href="nova-foto.php">Nova Foto</a>
     </div>
     <div class="card-action">
         <a href="#">Novo Vídeo</a>
