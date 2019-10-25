@@ -11,7 +11,7 @@
                     <span class="card-title">Título do artigo</span>
                 </div>
                 <div class="card-content">
-                    <p>prévia do artigo prévia do artigo prévia do artigo prévia do artigo prévia do artigo</p>
+                    <p>prévia do artigo </p>
                 </div>
                 <div class="card-action">
                     <a href="#">Ir para artigo</a>

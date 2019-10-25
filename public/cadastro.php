@@ -1,23 +1,21 @@
 <?php
 session_start();
-$usuario_logado = false;
+$usuario_logado = false; //ou seja, para fazer o cadastro, o usuário não está logado no sistema
+include "./Components/html-head.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-<?php include "./Components/html-head.php" ?>
 <title>Cadastro</title>
 </head>
-
 <body>
    <?php include './Components/header.php' ?>
     <div class="container">
         <div class="row">
             <h2 class="header">Cadastro</h2>
             <div class="col s12 m6">
-                <form action="../includes/cadastro-validator.php" method="POST" enctype="multipart/form-data">
-
+                <form action="../includes/cadastro-validator.php" method="POST" enctype="multipart/form-data"> 
+                
                     <div class="input-field">
                         <label for="nome">Nome</label>
                         <input type="text" name="nome" id="nome" required>
