@@ -9,10 +9,14 @@ $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
     <?php include "./Components/html-head.php"; ?>
     <title>Nova Foto - Institute History</title>
     <style>
+        .fotos {
+            padding: 10px;
+        }
         .add-foto {
             float: left;
             height: 200px;
             width: 200px;
+            border: 1px solid black;
         }
 
         .add-foto .btn {
@@ -23,7 +27,9 @@ $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
             top: 80px;
             z-index: 1000;
             padding: 5px;
-            background: rgba(76, 175, 80, 0.7);
+            background: rgba(76, 175, 80, 1);
+            border: none;
+            box-shadow: none;
         }
 
         .add-foto .btn:hover {
@@ -47,7 +53,7 @@ $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
                     <div id="fotos">
                         <div class="file-field input-field add-foto">
                             <img class="preview" width="200" height="200">
-                            <div class="btn">
+                            <div class="btn" id="btn0">
                                 <span><i class="material-icons">add</i></span>
                                 <input type="file" name="foto0" required />
                             </div>
@@ -69,27 +75,43 @@ $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
 
     </div>
     <script>
+        //pega todos os inputs e fotos preview
         var previews = document.querySelectorAll('.preview');
         var inputs = document.querySelectorAll('input[type=file]');
 
+        //define todos os inputs como não alterados
         inputs.forEach(element => {
             element.mudado = false;
         })
 
-
+        //função pra adionar um input de foto
         function newFileInput(index_foto) {
             document.getElementById('fotos').innerHTML +=
-                '<div class="file-field input-field add-foto"><img class="preview" width="200" height="200"><div class="btn"><span><i class="material-icons">add</i></span><input type="file" name="foto' + index_foto + '" required /></div></div> '
+                '<div class="file-field input-field add-foto"><img class="preview" width="200" height="200"><div class="btn" id="btn'+ index_foto +'"><span><i class="material-icons">add</i></span><input type="file" name="btn' + index_foto + '" /></div></div> '
         }
 
+        //função pra remover o botão de + em um preview
+        function removerBtn(btnID){
+            document.querySelector(`#${btnID}`).style.display = 'none';
+        }
+
+        //define um trigger pra todos os inputs(recursivamente)
         function addEvent() {
             inputs.forEach((value, index) => {
                 value.addEventListener('change', (e) => {
+                    //bagulhos copiados do StackOverflow
                     const fileToUpload = e.target.files.item(0);
                     const reader = new FileReader();
                     reader.onload = e => previews[index].src = e.target.result;
                     reader.readAsDataURL(fileToUpload);
+                    
+                    //cria novo input de foto
                     newFileInput(index + 1)
+                    
+                    //removove o botão de + do elemento atual na iteração
+                    removerBtn('btn' + index)
+
+                    //atualiza as variaveis iniciais
                     previews = document.querySelectorAll('.preview');
                     inputs = document.querySelectorAll('input[type=file]');
                     addEvent();
