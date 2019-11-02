@@ -62,9 +62,6 @@ CREATE TABLE `postagem` (
 -- Extraindo dados da tabela `postagem`
 --
 
-INSERT INTO `postagem` (`postagem_id`, `postagem_titulo`, `usuario_id`, `postagem_data`, `postagem_resumo`, `postagem_tipo`) VALUES
-(9, 'Ex-estudantes', 9, '2019-11-02 15:26:06', 'Esses foram ex-estudantes hoje formados na instituiÃ§Ã£o:\r\nFulano, Ciclano e Fulana', 'foto');
-
 -- --------------------------------------------------------
 
 --
@@ -96,10 +93,6 @@ CREATE TABLE `usuario` (
 --
 -- Extraindo dados da tabela `usuario`
 --
-
-INSERT INTO `usuario` (`usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_foto`, `usuario_admin`, `usuario_id`) VALUES
-('JoÃ£o Danilo', 'jddiedrich@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '18404-gente-que-da-prioridade-aos-sentimentos-article_gallery-2.jpg', b'0', 9);
-
 -- --------------------------------------------------------
 
 --
