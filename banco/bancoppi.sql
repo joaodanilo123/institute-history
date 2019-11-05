@@ -114,3 +114,5 @@ ALTER TABLE memoria
 --
 ALTER TABLE videos
   ADD CONSTRAINT videos_ibfk_1 FOREIGN KEY (usuario_id) REFERENCES usuario (usuario_id);
+
+select * from usuario

@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;

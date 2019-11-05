@@ -1,27 +1,29 @@
+
 <?php
 session_start();
-$usuario_logado = false; //ou seja, para fazer o cadastro, o usuário não está logado no sistema
-include "./Components/html-head.php"; // include do html-head.php com o visual
 include "conexao.php";
+$id = $_SESSION['nome'];
+$sql = "select * from usuario where usuario_id = $id";
+$result = mysqli_query($conectar, $sql);
+$user = mysqli_fetch_assoc($result);
+mysqli_close($conectar);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<title>Cadastro</title>
+<title>Alterar usuário</title>
+<?php include "./Components/html-head.php" ?>  <!-- include do html-head.php com o visual-->
 </head>
 <body>
-   <?php include './Components/header.php' ?> <!-- cria a aba institute-history-->
-    <div class="container"> <!--da parte do div onde está os dados para o usuário infomar-->
+		<?php include './Components/header.php' ?> <!-- cria a aba institute-history-->
+		<div class="container"> <!--da parte do div onde está os dados para o usuário editar-->
         <div class="row">
-            <h2 class="header">Cadastro</h2>
+            <h2 class="header">Edição dos dados</h2>
             <div class="col s12 m6">
-                <form action="../includes/cadastro-validator.php" method="POST" enctype="multipart/form-data"> 
-                
-                    <div class="input-field"> <!--div para o input nome. Os demais também serão assim-->
-                        <label for="nome">Nome</label>
-                        <input type="text" name="nome" id="nome" required>
-                    </div>
-                    <div class="input-field">
+			<form method ="POST" action="atualizarcadastro.php" enctype="multipart/form-data">
+				<input type = "hidden" name="id" value="<?php echo $id;?>" >	
+				<div class="input-field">
                         <label for="email">Email</label>
                         <input type="text" name="email" id="email" required>
                     </div>
@@ -37,7 +39,7 @@ include "conexao.php";
                     </div>
                     <div class="file-field input-field">
                     <div class="btn green">
-                            <span>Foto do perfil</span>
+					<span>Foto do perfil</span>
                             <input type="file" name="foto" required />
                     </div>
                     <div class="file-path-wrapper">
@@ -45,7 +47,7 @@ include "conexao.php";
                     </div>
                     </div>
                     <div class="row">
-                        <input class="btn col s12 m12 green" type="submit" value="cadastrar">
+                        <input class="btn col s12 m12 green" type="submit" value="Editar cadastro">
                     </div>
                 </form>
             </div>
@@ -61,3 +63,7 @@ include "conexao.php";
 </body>
 
 </html>
+	
+              
+		
+              

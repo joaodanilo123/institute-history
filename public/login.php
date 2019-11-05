@@ -1,20 +1,18 @@
 <?php
-session_start();
-if (isset($_SESSION['nome'])) {
-    header('Location: ../');
+session_start(); // a função session_start cia uma sessão que passa um id via get ou post
+if (isset($_SESSION['nome'])) { // isset informa se a variável é existente, não sendo nula
+    header('Location: ../');   
 }
 $usuario_logado = false;
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <?php include "./Components/html-head.php" ?>
+    <?php include "./Components/html-head.php" ?>  <!-- include do html-head.php com o visual-->
     <title>Login - Institute History</title>
 </head>
-
 <body>
-    <?php include './Components/header.php' ?>
+    <?php include './Components/header.php' ?> <!-- cria a aba institute-history-->
     <div class="container">
         <div class="row">
             <h2 class="header">Login</h2>
