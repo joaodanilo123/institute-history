@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 02-Nov-2019 às 15:28
+-- Generation Time: 05-Nov-2019 às 12:24
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
 
@@ -25,6 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `comentario`
+--
+
+CREATE TABLE `comentario` (
+  `c_texto` text NOT NULL,
+  `c_data` datetime NOT NULL,
+  `usuario_id` smallint(3) NOT NULL,
+  `postagem_id` smallint(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `foto`
 --
 
@@ -39,9 +52,7 @@ CREATE TABLE `foto` (
 --
 
 INSERT INTO `foto` (`foto_id`, `foto_arquivo`, `postagem_id`) VALUES
-(7, '18404-gente-que-da-prioridade-aos-sentimentos-article_gallery-2.jpg', 9),
-(8, 'O-que-as-pessoas-felizes-tÃªm-em-comum-site-830x450.jpg', 9),
-(9, 'Toni+perfil.png', 9);
+(1, 'O-que-as-pessoas-felizes-tÃªm-em-comum-site-830x450.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -55,12 +66,16 @@ CREATE TABLE `postagem` (
   `usuario_id` smallint(3) NOT NULL,
   `postagem_data` datetime NOT NULL,
   `postagem_resumo` text,
+  `postagem_curtidas` smallint(3) NOT NULL,
   `postagem_tipo` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `postagem`
 --
+
+INSERT INTO `postagem` (`postagem_id`, `postagem_titulo`, `usuario_id`, `postagem_data`, `postagem_resumo`, `postagem_curtidas`, `postagem_tipo`) VALUES
+(1, 'Foto ', 11, '2019-11-04 03:05:31', 'RESUMO DA FOTO', 0, 'foto');
 
 -- --------------------------------------------------------
 
@@ -93,6 +108,10 @@ CREATE TABLE `usuario` (
 --
 -- Extraindo dados da tabela `usuario`
 --
+
+INSERT INTO `usuario` (`usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_foto`, `usuario_admin`, `usuario_id`) VALUES
+('Joao', 'jddiedrich@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'eu.jpg', b'0', 11);
+
 -- --------------------------------------------------------
 
 --
@@ -108,6 +127,13 @@ CREATE TABLE `video` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `comentario`
+--
+ALTER TABLE `comentario`
+  ADD UNIQUE KEY `usuario_id` (`usuario_id`),
+  ADD UNIQUE KEY `postagem_id` (`postagem_id`);
 
 --
 -- Indexes for table `foto`
@@ -143,13 +169,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `foto_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `foto_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `postagem`
 --
 ALTER TABLE `postagem`
-  MODIFY `postagem_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `postagem_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `preview`
@@ -161,7 +187,7 @@ ALTER TABLE `preview`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `usuario_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
