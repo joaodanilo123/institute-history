@@ -5,7 +5,7 @@
         <ul class="right hide-on-med-and-down">
             <li><a href="#">Vídeos</a></li>
             <li><a href="#">Memórias</a></li>
-            <li><a href="#">Fotos</a></li>
+            <li><a href="./fotos.php">Fotos</a></li>
             <?php if ($usuario_logado) : ?>
                 <li><a href="../includes/logout.php">Logout</a></li>
             <?php else : ?>
@@ -18,7 +18,7 @@
     <?php if ($usuario_logado) include './Components/sidenav-user.php'; ?>
     <li><a href="#">Vídeos</a></li>
     <li><a href="#">Memórias</a></li>
-    <li><a href="#">Fotos</a></li>
+    <li><a href="./fotos.php">Fotos</a></li>
     <?php if ($usuario_logado) : ?>
         <li><a href="../includes/logout.php">Logout</a></li>
     <?php else : ?>
@@ -27,8 +27,7 @@
 </ul>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var options = {}
         var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, options);
+        var instances = M.Sidenav.init(elems, {});
     });
 </script>

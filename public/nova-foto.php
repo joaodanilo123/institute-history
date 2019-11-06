@@ -23,17 +23,17 @@ $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
                     </div>
                     <div class="input-field col s12">
                         <textarea id="textarea" class="materialize-textarea" name="resumo"></textarea>
-                        <label for="textarea">Resumo</label>
+                        <label for="textarea">O que essa foto significa?</label>
                     </div>
 
 
                     <div class="file-field input-field col s12">
                         <div class="btn">
-                            <span>File</span>
+                            <span>Selecione uma ou mais fotos</span>
                             <input type="file" name="fotos[]" multiple>
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                            <input class="file-path validate" type="text" placeholder="nome do arquivo">
                         </div>
                     </div>
 

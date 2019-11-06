@@ -5,8 +5,6 @@ $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
 if ($usuario_logado) {
     include './connection.php';
 
-    
-
     $titulo = $_POST['titulo'];
     $resumo = $_POST['resumo'];
     $fotos = $_FILES['fotos'];
@@ -15,7 +13,6 @@ if ($usuario_logado) {
     $data = date("Y-m-d H:i:s");
 
     
-
     $query = "INSERT INTO postagem(`postagem_titulo`, `usuario_id`, `postagem_data`, `postagem_resumo`, `postagem_tipo`) VALUES ('$titulo', '$usuario_id','$data', '$resumo', 'foto')";
     $conn->query($query);
 
@@ -27,6 +24,7 @@ if ($usuario_logado) {
     if (mysqli_errno($conn)) {
         print(mysqli_error($conn));
     }
+
     $postagemID = mysqli_fetch_assoc($result)['postagem_id'];
 
     print_r($fotos);
@@ -39,6 +37,7 @@ if ($usuario_logado) {
         
         if(move_uploaded_file($fotos['tmp_name'][$i], $pastaPostagem.$arquivo)){
             header('Location: ../public/');
+            exit();
         }
     }
 
