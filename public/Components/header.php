@@ -4,7 +4,6 @@
         <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="#">Vídeos</a></li>
-            <li><a href="#">Memórias</a></li>
             <li><a href="./fotos.php">Fotos</a></li>
             <?php if ($usuario_logado) : ?>
                 <li><a href="../includes/logout.php">Logout</a></li>
@@ -17,7 +16,6 @@
 <ul class="sidenav" id="mobile">
     <?php if ($usuario_logado) include './Components/sidenav-user.php'; ?>
     <li><a href="#">Vídeos</a></li>
-    <li><a href="#">Memórias</a></li>
     <li><a href="./fotos.php">Fotos</a></li>
     <?php if ($usuario_logado) : ?>
         <li><a href="../includes/logout.php">Logout</a></li>

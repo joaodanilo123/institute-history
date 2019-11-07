@@ -26,6 +26,8 @@ $fotos = carregarPostagensFoto();
         <?php for ($i = 0; $i < $fotos['linhas']; $i++) : ?>
             <?php 
             
+            $id = $fotos['dados'][$i]['postagem_id'];
+            $url = "./foto.php?id=$id";
             $titulo = $fotos['dados'][$i]['postagem_titulo'] ;
             $resumo = $fotos['dados'][$i]['postagem_resumo'] ;
             $data = $fotos['dados'][$i]['postagem_data'] ;
@@ -35,7 +37,7 @@ $fotos = carregarPostagensFoto();
             ?>
             
             <div class="divider col s12"></div>
-            <a href="" class="center col s12">
+            <a href="<?= $url ?>" class="center col s12">
                 <h2><?= $titulo ?></h2>
             </a>
             <div class="col s12 center">

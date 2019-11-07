@@ -11,7 +11,7 @@ function getAutor($usuario_id){
 function carregarPostagensFoto($limit=10){
     global $conn;
     
-    $resultPostagem= $conn->query("SELECT * FROM postagem WHERE postagem_tipo = 'foto' ORDER BY postagem_data LIMIT $limit");
+    $resultPostagem= $conn->query("SELECT * FROM postagem WHERE postagem_tipo = 'foto' ORDER BY postagem_data DESC LIMIT $limit");
     $arr = array();
     while ($aux = $resultPostagem->fetch_assoc()) {
         $aux['autor'] = getAutor($aux['usuario_id']);
@@ -25,3 +25,32 @@ function carregarPostagensFoto($limit=10){
 
     return ['dados' => $arr, 'linhas' => mysqli_num_rows($resultPostagem)];
 }
+
+function carregarPreview($limit=10){
+    global $conn;
+
+    $resultPreview= $conn->query("SELECT * FROM preview ORDER BY preview_id DESC LIMIT $limit");
+    $arr = array();
+    while($aux = $resultPreview->fetch_assoc()){
+        array_push($arr, $aux);
+    }
+
+    return $arr;
+}
+
+function carregarDadosPostagem(int $id){
+    global $conn;
+    $resultPostagem = $conn->query("SELECT * FROM postagem WHERE postagem_id = $id");
+    if(mysqli_num_rows($resultPostagem) <= 0) {
+        return false;
+    }
+    $resultPostagem = $resultPostagem->fetch_assoc();
+    $resultPostagem['arquivos'] = array();
+    $result = $conn->query(sprintf("SELECT foto_arquivo FROM foto WHERE postagem_id = %d", $resultPostagem['postagem_id']));
+    while($aux = $result->fetch_assoc()){
+        array_push($resultPostagem['arquivos'], $aux['foto_arquivo']);
+    }
+
+    return $resultPostagem;
+
+};

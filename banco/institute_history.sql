@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 05-Nov-2019 às 12:24
+-- Generation Time: 07-Nov-2019 às 18:18
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
 
@@ -29,10 +29,24 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comentario` (
+  `comentario_id` smallint(3) NOT NULL,
   `c_texto` text NOT NULL,
   `c_data` datetime NOT NULL,
   `usuario_id` smallint(3) NOT NULL,
   `postagem_id` smallint(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `denuncia`
+--
+
+CREATE TABLE `denuncia` (
+  `denuncia_id` smallint(3) NOT NULL,
+  `postagem_id` smallint(3) NOT NULL,
+  `denuncia_descricao` text NOT NULL,
+  `denuncia_aberta` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -52,7 +66,8 @@ CREATE TABLE `foto` (
 --
 
 INSERT INTO `foto` (`foto_id`, `foto_arquivo`, `postagem_id`) VALUES
-(1, 'O-que-as-pessoas-felizes-tÃªm-em-comum-site-830x450.jpg', 1);
+(8, 'O-que-as-pessoas-felizes-tÃªm-em-comum-site-830x450.jpg', 6),
+(9, 'Toni+perfil.png', 6);
 
 -- --------------------------------------------------------
 
@@ -75,7 +90,7 @@ CREATE TABLE `postagem` (
 --
 
 INSERT INTO `postagem` (`postagem_id`, `postagem_titulo`, `usuario_id`, `postagem_data`, `postagem_resumo`, `postagem_curtidas`, `postagem_tipo`) VALUES
-(1, 'Foto ', 11, '2019-11-04 03:05:31', 'RESUMO DA FOTO', 0, 'foto');
+(6, 'TITULO', 11, '2019-11-07 18:09:02', 'MASSASASAADASDADASD', 0, 'foto');
 
 -- --------------------------------------------------------
 
@@ -89,6 +104,13 @@ CREATE TABLE `preview` (
   `preview_foto` varchar(255) DEFAULT NULL,
   `preview_url` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `preview`
+--
+
+INSERT INTO `preview` (`preview_id`, `preview_resumo`, `preview_foto`, `preview_url`) VALUES
+(6, 'TITULO', '../users/Joao/TITULO/O-que-as-pessoas-felizes-tÃªm-em-comum-site-830x450.jpg', './foto.php?id=6');
 
 -- --------------------------------------------------------
 
@@ -132,8 +154,15 @@ CREATE TABLE `video` (
 -- Indexes for table `comentario`
 --
 ALTER TABLE `comentario`
+  ADD PRIMARY KEY (`comentario_id`),
   ADD UNIQUE KEY `usuario_id` (`usuario_id`),
   ADD UNIQUE KEY `postagem_id` (`postagem_id`);
+
+--
+-- Indexes for table `denuncia`
+--
+ALTER TABLE `denuncia`
+  ADD PRIMARY KEY (`denuncia_id`);
 
 --
 -- Indexes for table `foto`
@@ -166,22 +195,34 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT for table `comentario`
+--
+ALTER TABLE `comentario`
+  MODIFY `comentario_id` smallint(3) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `denuncia`
+--
+ALTER TABLE `denuncia`
+  MODIFY `denuncia_id` smallint(3) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `foto_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `foto_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `postagem`
 --
 ALTER TABLE `postagem`
-  MODIFY `postagem_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `postagem_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `preview`
 --
 ALTER TABLE `preview`
-  MODIFY `preview_id` smallint(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `preview_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `usuario`
