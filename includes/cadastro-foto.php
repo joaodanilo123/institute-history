@@ -1,38 +1,35 @@
-<?php 
+<?php
 session_start();
-$usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
+include './Server.class.php';
+include './CrudFotos.class.php';
+include './CrudPostagem.class.php';
+include './connection.php';
+if (Server::existInPOST(['titulo', 'resumo']) and Server::userIsLogged()) {
+    
+    $cFoto = new CFoto($conn);
+    $cPostagem = new CPostagem($conn);
 
-function cadastrarFotos($nfotos, $array, $postagemID, $pasta){
-    global $conn;
+    $postagemID = $cPostagem->createPostagem($_POST['titulo'], $_POST['resumo'], $_SESSION['id'], 'foto');
+    $dir = Server::createDirPostagem('../users', $_SESSION['nome'], $_POST['titulo']);
+    $fotos = $cFoto->separateFiles($_FILES['fotos']);
 
-    for ($i=0; $i < $nfotos; $i++) { 
-        $arquivo = $array['name'][$i];
-        $query = "INSERT INTO foto(foto_arquivo, postagem_id) VALUES ('$arquivo', '$postagemID')";
-        $conn->query($query) or die();
-        
-        if(move_uploaded_file($array['tmp_name'][$i], $pasta.$arquivo) and $i === $nfotos - 1){
-            header('Location: ../public/?fotos=' . $array[$i]);
-            exit();
+    foreach ($fotos as $key) {
+        $cFoto->createFoto($key['name'], $postagemID);
+        try {
+            move_uploaded_file($key['tmp_name'], $dir.$key['name']);
+        } catch (\Throwable $th) {
+            echo $th;
         }
+        
     }
-}   
 
-if ($usuario_logado) {
-    include './connection.php';
+    header('Location: ../public');
+}
 
-    $titulo = $_POST['titulo'];
-    $resumo = $_POST['resumo'];
-    $fotos = $_FILES['fotos'];
-    $nfotos = count($fotos['name']);
-    $usuario_id = $_SESSION['id'];
-    $usuario = $_SESSION['nome'];
-    $data = date("Y-m-d H:i:s");
 
-    $query = "INSERT INTO postagem(`postagem_titulo`, `usuario_id`, `postagem_data`, `postagem_resumo`, `postagem_tipo`) VALUES ('$titulo', '$usuario_id','$data', '$resumo', 'foto')";
-    $conn->query($query);
 
-    $pastaPostagem = "../users/$usuario/$titulo/";
-    mkdir($pastaPostagem, 0777);
+/*echo $postagem;
+
 
     $query = "SELECT postagem_id FROM postagem WHERE `postagem_titulo` = '$titulo'";
     $result = $conn->query($query);
@@ -50,4 +47,4 @@ if ($usuario_logado) {
     
 } else {
     header('Location: ../public');
-}
+}*/
