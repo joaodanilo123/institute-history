@@ -27,6 +27,17 @@ class CFoto
         }
     }
 
+    public function getFotoArquivos(int $id){
+        $sql = "SELECT foto_arquivo FROM foto WHERE postagem_id = $id";
+        $result = $this->db->query($sql);
+        $arquivos = array();
+        while($row = $result->fetch_assoc()){
+            array_push($arquivos, $row['foto_arquivo']);
+        }
+
+        return $arquivos;
+    }
+
     function __construct(mysqli $conn)
     {
         $this->db = $conn;

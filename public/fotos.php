@@ -1,8 +1,15 @@
 <?php
 session_start();
-include_once '../includes/carregarPostagem.php';
-$usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
-$fotos = carregarPostagensFoto();
+include_once '../includes/CrudPostagem.class.php';
+include_once '../includes/CrudFotos.class.php';
+include_once '../includes/Server.class.php';
+include_once '../includes/connection.php';
+
+$usuario_logado = Server::userIsLogged();
+$cPostagem      = new CPostagem($conn);
+$cFoto          = new CFoto($conn);
+
+$postagens = $cPostagem->carregarPostagemId(10, 'foto');
 
 ?>
 <!DOCTYPE html>
@@ -23,27 +30,26 @@ $fotos = carregarPostagensFoto();
         <?php include "./Components/header.php"; ?>
     </div>
     <div class="row postagem">
-        <?php for ($i = 0; $i < $fotos['linhas']; $i++) : ?>
-            <?php 
-            
-            $id = $fotos['dados'][$i]['postagem_id'];
-            $url = "./foto.php?id=$id";
-            $titulo = $fotos['dados'][$i]['postagem_titulo'] ;
-            $resumo = $fotos['dados'][$i]['postagem_resumo'] ;
-            $data = $fotos['dados'][$i]['postagem_data'] ;
-            $autor = $fotos['dados'][$i]['autor'];
-            $arquivo = $fotos['dados'][$i]['arquivos'][0];
-            
-            ?>
-            
+        <?php for ($i = 0; $i < count($postagens); $i++) : ?>
+            <?php
+
+                $id = $postagens[$i];
+                $postagem = $cPostagem->getPostagem($id);
+                $autor = $cPostagem->getAutor($postagem['usuario_id']);
+                $url = "./foto.php?id=$id";
+                $titulo = $postagem['postagem_titulo'];
+                $resumo = $postagem['postagem_resumo'];
+                $data = $postagem['postagem_data'];
+                $arquivo = $cFoto->getFotoArquivos($id)[0];
+
+                ?>
+
             <div class="divider col s12"></div>
             <a href="<?= $url ?>" class="center col s12">
                 <h2><?= $titulo ?></h2>
             </a>
             <div class="col s12 center">
-                <img class="responsive-img postagem-foto" 
-                src="<?= "../users/$autor/$titulo/$arquivo" ?>"
-                >
+                <img class="responsive-img postagem-foto" src="<?= "../users/$autor/$titulo/$arquivo" ?>">
             </div>
             <div class="col s12 m6 offset-m3 truncate center">
                 <span><?= $resumo ?></span>
@@ -57,7 +63,7 @@ $fotos = carregarPostagensFoto();
             <div class="divider col s12"></div>
         <?php endfor;  ?>
     </div>
-    
+
 </body>
 
 </html>
