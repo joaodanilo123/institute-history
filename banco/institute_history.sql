@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07-Nov-2019 às 18:18
+-- Generation Time: 13-Nov-2019 às 12:00
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
 
@@ -39,6 +39,24 @@ CREATE TABLE `comentario` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `curtida`
+--
+
+CREATE TABLE `curtida` (
+  `usuario_id` smallint(3) NOT NULL,
+  `postagem_id` smallint(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `curtida`
+--
+
+INSERT INTO `curtida` (`usuario_id`, `postagem_id`) VALUES
+(11, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `denuncia`
 --
 
@@ -66,8 +84,9 @@ CREATE TABLE `foto` (
 --
 
 INSERT INTO `foto` (`foto_id`, `foto_arquivo`, `postagem_id`) VALUES
-(8, 'O-que-as-pessoas-felizes-tÃªm-em-comum-site-830x450.jpg', 6),
-(9, 'Toni+perfil.png', 6);
+(4, 'homi.jpg', 3),
+(5, 'homi2.png', 3),
+(6, 'muie.jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -90,7 +109,7 @@ CREATE TABLE `postagem` (
 --
 
 INSERT INTO `postagem` (`postagem_id`, `postagem_titulo`, `usuario_id`, `postagem_data`, `postagem_resumo`, `postagem_curtidas`, `postagem_tipo`) VALUES
-(6, 'TITULO', 11, '2019-11-07 18:09:02', 'MASSASASAADASDADASD', 0, 'foto');
+(3, 'Exemplo de postagem', 11, '2019-11-12 19:15:11', 'Essa foto Ã© um teste', 0, 'foto');
 
 -- --------------------------------------------------------
 
@@ -110,7 +129,7 @@ CREATE TABLE `preview` (
 --
 
 INSERT INTO `preview` (`preview_id`, `preview_resumo`, `preview_foto`, `preview_url`) VALUES
-(6, 'TITULO', '../users/Joao/TITULO/O-que-as-pessoas-felizes-tÃªm-em-comum-site-830x450.jpg', './foto.php?id=6');
+(1, 'Exemplo de postagem', '../users/Joao/Exemplo de postagem/homi.jpg', './foto.php?id=3');
 
 -- --------------------------------------------------------
 
@@ -132,7 +151,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_foto`, `usuario_admin`, `usuario_id`) VALUES
-('Joao', 'jddiedrich@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'eu.jpg', b'0', 11);
+('Joao', 'jddiedrich@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'eu.jpg', b'0', 11),
+('pinto', 'pintonoteucu@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'homi.jpg', b'0', 12);
 
 -- --------------------------------------------------------
 
@@ -157,6 +177,13 @@ ALTER TABLE `comentario`
   ADD PRIMARY KEY (`comentario_id`),
   ADD UNIQUE KEY `usuario_id` (`usuario_id`),
   ADD UNIQUE KEY `postagem_id` (`postagem_id`);
+
+--
+-- Indexes for table `curtida`
+--
+ALTER TABLE `curtida`
+  ADD KEY `postagem_id` (`postagem_id`),
+  ADD KEY `usuario_id` (`usuario_id`);
 
 --
 -- Indexes for table `denuncia`
@@ -210,29 +237,36 @@ ALTER TABLE `denuncia`
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `foto_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `foto_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `postagem`
 --
 ALTER TABLE `postagem`
-  MODIFY `postagem_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `postagem_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `preview`
 --
 ALTER TABLE `preview`
-  MODIFY `preview_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `preview_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `usuario_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Limitadores para a tabela `curtida`
+--
+ALTER TABLE `curtida`
+  ADD CONSTRAINT `curtida_ibfk_1` FOREIGN KEY (`postagem_id`) REFERENCES `postagem` (`postagem_id`),
+  ADD CONSTRAINT `curtida_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`usuario_id`);
 
 --
 -- Limitadores para a tabela `postagem`
