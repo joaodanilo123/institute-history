@@ -2,6 +2,7 @@
 <?php
 session_start();
 $usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
+include '../includes/carregarPostagem.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

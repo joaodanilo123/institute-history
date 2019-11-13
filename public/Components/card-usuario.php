@@ -12,9 +12,6 @@
         <p><?= $_SESSION['nome'] ?></p>
     </div>
     <div class="card-action">
-        <a href="#">Nova Memória</a>
-    </div>
-    <div class="card-action">
         <a href="nova-foto.php">Nova Foto</a>
     </div>
     <div class="card-action">
