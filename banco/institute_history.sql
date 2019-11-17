@@ -6,7 +6,8 @@
 -- Generation Time: 13-Nov-2019 às 12:00
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
-
+CREATE DATABASE institute_history;
+use institute_history;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -50,9 +51,6 @@ CREATE TABLE `curtida` (
 --
 -- Extraindo dados da tabela `curtida`
 --
-
-INSERT INTO `curtida` (`usuario_id`, `postagem_id`) VALUES
-(11, 3);
 
 -- --------------------------------------------------------
 
@@ -151,8 +149,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_foto`, `usuario_admin`, `usuario_id`) VALUES
-('Joao', 'jddiedrich@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'eu.jpg', b'0', 11),
-('pinto', 'pintonoteucu@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'homi.jpg', b'0', 12);
+('Maisa11', 'maisa@hotmail.com', '10', 'eu.jpg', b'0', 10);
 
 -- --------------------------------------------------------
 
