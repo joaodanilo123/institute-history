@@ -62,12 +62,26 @@ class CPostagem
         $this->db = $conn;
     }
 
-    public function curtir(int $postagemID, int $usuarioID){
-        $sql = "INSERT INTO curtida(postagem_id, usuario_id) VALUES ($postagemID, $usuarioID)";
+    public function curtir(int $postagemID, int $usuarioID)
+    {
         try {
-            $this->db->query($sql);
+            $sql = "SELECT * FROM curtida WHERE postagem_id = $postagemID AND usuario_id = $usuarioID";
+            if ($this->db->query($sql)->num_rows > 0) {
+                $sql = "DELETE FROM curtida WHERE postagem_id = $postagemID AND usuario_id = $usuarioID";
+                $this->db->query($sql);
+            } else {
+                $sql = "INSERT INTO curtida(postagem_id, usuario_id) VALUES ($postagemID, $usuarioID)";
+                $this->db->query($sql);
+            }
         } catch (\Throwable $th) {
             return $th;
         }
+    }
+
+    public function getCurtidas(int $postagemID)
+    {
+        $sql = "SELECT * FROM curtida WHERE postagem_id = $postagemID";
+        $query = $this->db->query($sql);
+        return $query->num_rows;
     }
 }

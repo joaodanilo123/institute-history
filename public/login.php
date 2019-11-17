@@ -1,21 +1,24 @@
 <?php
 session_start(); // a função session_start cia uma sessão que passa um id via get ou post
 if (isset($_SESSION['nome'])) { // isset informa se a variável é existente, não sendo nula
-    header('Location: ../');   
+    header('Location: ../');
 }
 $usuario_logado = false;
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
-    <?php include "./Components/html-head.php" ?>  <!-- include do html-head.php com o visual-->
+    <?php include "./Components/html-head.php" ?>
+    <!-- include do html-head.php com o visual-->
     <title>Login - Institute History</title>
 </head>
+
 <body>
-    <?php include './Components/header.php' ?> <!-- cria a aba institute-history-->
     <div class="container">
-        <div class="row">
-            <h2 class="header">Login</h2>
+        <div class="row valign wrapper">
+            <br><br><br><br>
+            <h2>Login</h2>
             <div class="col s12 m6">
                 <form action="../includes/login-validator.php" method="POST">
 
@@ -29,7 +32,7 @@ $usuario_logado = false;
                         <input type="password" name="senha" id="senha">
                     </div>
                     <div class="row">
-                        <input class="btn col s12 m12" type="submit" value="Entrar">
+                        <input class="btn col s12 m12 green" type="submit" value="Entrar">
                     </div>
                 </form>
                 <?php if (isset($_SESSION['erro_de_login'])) : ?>
