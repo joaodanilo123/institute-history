@@ -26,8 +26,6 @@ class Server
     }
     public static function userIsLogged()
     {
-        global $_SESSION;
-
         return isset($_SESSION['id']);
     }
 

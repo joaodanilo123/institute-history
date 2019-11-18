@@ -4,7 +4,7 @@
         <li><a href="./novo-video.php">Novo Vídeo</a></li>
     </ul>
     <div class="nav-wrapper green z-depth-4 padding-top">
-        <a href="." class="brand-logo times"><img src="../css/logo.png" alt="" srcset=""></a>
+        <a href="." class="brand-logo"><img src="../css/logo.png"></a>
         <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="#">Vídeos</a></li>

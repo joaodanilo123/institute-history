@@ -9,11 +9,25 @@ include '../includes/carregarPostagem.php';
 
 <head>
 <?php include "./Components/html-head.php" ?>
+<style>
+.input-field .prefix.active {
+     color: white;
+}
+</style>
 </head>
 
 <body>
     <div class="row">
         <?php include "./Components/header.php"; ?>
+    </div>
+    <div class="row">
+        <form action="buscar.php" method="post" class="card-panel z-depth-4 white col s12 l10 offset-l1 opacidade-anim">
+            <div class="input-field">
+                <button class="material-icons prefix btn green center">search</button>
+                <input type="text" name="busca" id="busca">
+                <label for="busca">Buscar Postagem</label>
+            </div>
+        </form>
     </div>
     <div class="row">
         <?php include './Components/preview.php'; ?>
