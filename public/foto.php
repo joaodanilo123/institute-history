@@ -76,21 +76,26 @@ $curtidas = $cPostagem->getCurtidas($_GET['id']);
             <?php if ($usuario_logado) : ?>
                 <div class="col s2">
                     <div class="card-panel">
-                        <button class="btn-floating btn-large waves-effect waves-light curtir green" onclick="curtir()"><i class="material-icons">thumb_up</i></button>
+                        <button title="Curtir" class="btn-floating btn-large waves-effect waves-light curtir green" onclick="curtir()"><i class="material-icons">thumb_up</i></button>
                         <span id="curtida-display"><?= $curtidas ?></span>
                     </div>
                 </div>
-                <div class="card-panel col s10 row">
+                <div class="card-panel col s8 row">
                     <div class="row col s12 valign-wrapper">
                         <div class="input-field col s10">
                             <textarea id="textarea1" class="materialize-textarea"></textarea>
                             <label for="textarea1">Escreva um comentário</label>
                         </div>
-                        <div class="col s2 ">
+                        <div class="col s2">
                             <button class="btn green ">
                                 <i class="material-icons">send</i>
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div class="col s2">
+                    <div class="card-panel center">
+                        <button title="Denunciar postagem" class="btn-floating btn-large waves-effect waves-light curtir red" onclick="denucia()" ><i class="material-icons">flag</i></button>
                     </div>
                 </div>
             <?php endif; ?>
