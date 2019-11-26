@@ -61,7 +61,7 @@ $curtidas = $cPostagem->getCurtidas($_GET['id']);
                     $path = "../users/$autor/$titulo/$arquivo";
                     $a++;
                     ?>
-                <a class="modal-trigger col s12 m6 offset-m3" href="#modal<?= $a ?>"><img src="<?= $path ?>" class="responsive-img"></a>
+                <a class="modal-trigger col s12 m6" href="#modal<?= $a ?>"><img src="<?= $path ?>" class="responsive-img"></a>
 
                 <div id="modal<?= $a ?>" class="modal">
                     <div class="modal-content">

@@ -10,7 +10,6 @@ include "conexao.php";
 <title>Cadastro</title>
 </head>
 <body>
-   <?php include './Components/header.php' ?> <!-- cria a aba institute-history-->
     <div class="container"> <!--da parte do div onde está os dados para o usuário infomar-->
         <div class="row">
             <h2 class="header">Cadastro</h2>

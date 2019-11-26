@@ -21,17 +21,20 @@ $crud = new CPostagem($conn);
 
 <body>
     <?php include "./Components/header.php" ?>
-    <h3>Postagens contendo "<?=$busca?>":</h3>
+    <?php include "./Components/buscador.php" ?>
+    <div class="center">
+        <h4>Postagens contendo "<?= $busca ?>":</h4>
+    </div>
     <div class="container">
         <?php
-        
+
         $sql = "SELECT * FROM postagem WHERE postagem_titulo LIKE '%$busca%' ORDER BY postagem_data DESC";
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) :
             $titulo = $row['postagem_titulo'];
             $resumo = $row['postagem_resumo'];
             $data = $row['postagem_data'];
-            $autor = $crud->getAutor($_SESSION['id']);
+            $autor = $crud->getAutor($row['usuario_id']);
             $url = "./foto.php?id=" . $row['postagem_id'];
             ?>
             <div class="row card-panel z-depth-4 white opacidade-anim">
@@ -42,8 +45,8 @@ $crud = new CPostagem($conn);
                     <span class="truncate"><?= $resumo ?></span>
                 </div>
                 <div class="col s12 m4">
-                    <h6><?=$autor?></h6>
-                    <h6><?=$data?></h6>
+                    <h6><?= $autor ?></h6>
+                    <h6><?= $data ?></h6>
                 </div>
 
             </div>

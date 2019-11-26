@@ -41,6 +41,22 @@ class CPostagem
         return $IDs;
     }
 
+    public function getPostagemIdByUser(int $usuario_id)
+    {
+        $sql = "SELECT postagem_id FROM postagem WHERE usuario_id = $usuario_id";
+        $arr = array();
+        $result = $this->db->query($sql);
+        if ($result->num_rows == 0) {
+            return false;
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                array_push($arr, $row['postagem_id']);
+            }
+        }
+        return $arr;
+    }
+
+
     public function getPostagem(int $id)
     {
         $sql = "SELECT * FROM postagem WHERE postagem_id = $id";
@@ -83,5 +99,53 @@ class CPostagem
         $sql = "SELECT * FROM curtida WHERE postagem_id = $postagemID";
         $query = $this->db->query($sql);
         return $query->num_rows;
+    }
+
+    public function deletePostagem(int $postagemID)
+    {
+        try {
+
+            $postagem = $this->getPostagem($postagemID);
+            $autor = $this->getAutor($postagem['usuario_id']);
+            $titulo = $postagem['postagem_titulo'];
+            function rrmdir($dir)
+            {
+                if (is_dir($dir)) {
+                    $objects = scandir($dir);
+                    foreach ($objects as $object) {
+                        if ($object != "." && $object != "..") {
+                            if (filetype($dir . "/" . $object) == "dir") rrmdir($dir . "/" . $object);
+                            else unlink($dir . "/" . $object);
+                        }
+                    }
+                    reset($objects);
+                    rmdir($dir);
+                }
+            }
+
+            rrmdir("../users/$autor/$titulo/");
+            $sql = "DELETE FROM preview WHERE preview_resumo = '$titulo'";
+            $this->db->query($sql);
+            $sql = "DELETE FROM foto WHERE postagem_id = $postagemID";
+            $this->db->query($sql);
+            $sql = "DELETE FROM curtida WHERE postagem_id = $postagemID";
+            $this->db->query($sql);
+            $sql = "DELETE FROM postagem WHERE postagem_id = $postagemID";
+            $this->db->query($sql);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    public function updatePostagem(int $postagemID, string $resumo, string $ntitulo, string $otitulo, int $userID)
+    {
+        $autor = $this->getAutor($userID);
+        rename( "../users/$autor/$otitulo/", "../users/$autor/$ntitulo/");
+
+        $previewfoto = "../users/$autor/$ntitulo/homi.jpg";
+        $sql = "UPDATE preview SET preview_resumo = '$ntitulo', preview_foto = '$previewfoto' WHERE preview_resumo = '$otitulo'";
+        $this->db->query($sql);
+        $sql = "UPDATE postagem SET postagem_resumo = '$resumo', postagem_titulo = '$ntitulo' WHERE postagem_id = $postagemID";
+        $this->db->query($sql);
     }
 }

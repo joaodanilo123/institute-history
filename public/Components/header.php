@@ -2,6 +2,7 @@
     <ul id="dropdown1" class="dropdown-content">
         <li><a href="./nova-foto.php">Nova Foto</a></li>
         <li><a href="./novo-video.php">Novo Vídeo</a></li>
+        <li><a href="./g_postagens.php">Minhas postagens</a></li>
     </ul>
     <div class="nav-wrapper green z-depth-4 padding-top">
         <a href="." class="brand-logo"><img src="../css/logo.png"></a>
@@ -24,6 +25,7 @@
     <li><a href="#">Vídeos</a></li>
     <li><a href="./fotos.php">Fotos</a></li>
     <?php if ($usuario_logado) : ?>
+        <li><a href="./g_postagens.php">Minhas postagens</a></li>
         <li><a href="../includes/logout.php">Logout</a></li>
     <?php else : ?>
         <li><a href="login.php">Login</a></li>

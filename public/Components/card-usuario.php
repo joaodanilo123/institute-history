@@ -17,4 +17,7 @@
     <div class="card-action">
         <a href="#">Novo Vídeo</a>
     </div>
+    <div class="card-action">
+        <a href="./g_postagens.php">Minhas postagens</a>
+    </div>
 </div>

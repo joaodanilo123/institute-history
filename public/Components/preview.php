@@ -1,7 +1,7 @@
 <?php 
 $previews = carregarPreview();
 ?>
-<div class="z-depth-4 white col s12 l7 offset-l1 opacidade-anim">
+<div class="z-depth-4 white opacidade-anim">
     <div class="header">
         <h5>Últimas postagens</h5>
     </div>

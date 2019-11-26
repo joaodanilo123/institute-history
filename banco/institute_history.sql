@@ -76,17 +76,7 @@ CREATE TABLE `foto` (
   `foto_arquivo` varchar(300) NOT NULL,
   `postagem_id` smallint(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `foto`
---
-
-INSERT INTO `foto` (`foto_id`, `foto_arquivo`, `postagem_id`) VALUES
-(4, 'homi.jpg', 3),
-(5, 'homi2.png', 3),
-(6, 'muie.jpg', 3);
-
--- --------------------------------------------------------
+-------------------------------------------------------
 
 --
 -- Estrutura da tabela `postagem`
@@ -102,12 +92,6 @@ CREATE TABLE `postagem` (
   `postagem_tipo` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `postagem`
---
-
-INSERT INTO `postagem` (`postagem_id`, `postagem_titulo`, `usuario_id`, `postagem_data`, `postagem_resumo`, `postagem_curtidas`, `postagem_tipo`) VALUES
-(3, 'Exemplo de postagem', 11, '2019-11-12 19:15:11', 'Essa foto Ã© um teste', 0, 'foto');
 
 -- --------------------------------------------------------
 
@@ -122,12 +106,7 @@ CREATE TABLE `preview` (
   `preview_url` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `preview`
---
 
-INSERT INTO `preview` (`preview_id`, `preview_resumo`, `preview_foto`, `preview_url`) VALUES
-(1, 'Exemplo de postagem', '../users/Joao/Exemplo de postagem/homi.jpg', './foto.php?id=3');
 
 -- --------------------------------------------------------
 
@@ -144,12 +123,7 @@ CREATE TABLE `usuario` (
   `usuario_id` smallint(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `usuario`
---
 
-INSERT INTO `usuario` (`usuario_nome`, `usuario_email`, `usuario_senha`, `usuario_foto`, `usuario_admin`, `usuario_id`) VALUES
-('Maisa11', 'maisa@hotmail.com', '10', 'eu.jpg', b'0', 10);
 
 -- --------------------------------------------------------
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$usuario_logado = isset($_SESSION['nome']) ? 1 : 0;
+$usuario_logado = isset($_SESSION['nome']) ? 1 : header('Location: ./');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
