@@ -102,7 +102,7 @@ $curtidas = $cPostagem->getCurtidas($_GET['id']);
                                 <div class="row">
                                     <div class="input-field">
                                         <input type="text" name="motivo" id="motivo">
-                                        <label for="motivo">Qual o motivo da denuncia?</label>
+                                        <label for="motivo">Qual o motivo da denúncia?</label>
                                     </div>
                                     <input type="hidden" name="postagem" value="<?=$_GET['id']?>">         
                                 </div>

@@ -8,10 +8,12 @@ if (isset($_POST['email']) and isset($_POST['senha'])) {
     $email = $_POST['email'];
     $senha = md5($_POST['senha']);
 
-    $sql = "SELECT usuario_nome, usuario_foto, usuario_id FROM usuario WHERE usuario_email = '$email' AND usuario_senha = '$senha'";
+    $sql = "SELECT usuario_nome, usuario_foto, usuario_id, usuario_admin FROM usuario WHERE usuario_email = '$email' AND usuario_senha = '$senha'";
+    
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_assoc($result);
+        $_SESSION['admin'] = $row['usuario_admin'];
         $_SESSION['id'] = $row['usuario_id'];
         $_SESSION['nome'] = $row['usuario_nome'];
         $_SESSION['foto'] = $row['usuario_foto'];

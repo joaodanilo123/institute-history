@@ -1,5 +1,18 @@
 <?php
-
+function rrmdir($dir)
+{
+    if (is_dir($dir)) {
+        $objects = scandir($dir);
+        foreach ($objects as $object) {
+            if ($object != "." && $object != "..") {
+                if (filetype($dir . "/" . $object) == "dir") rrmdir($dir . "/" . $object);
+                else unlink($dir . "/" . $object);
+            }
+        }
+        reset($objects);
+        rmdir($dir);
+    }
+}
 class CPostagem
 {
     private $db;
@@ -108,20 +121,7 @@ class CPostagem
             $postagem = $this->getPostagem($postagemID);
             $autor = $this->getAutor($postagem['usuario_id']);
             $titulo = $postagem['postagem_titulo'];
-            function rrmdir($dir)
-            {
-                if (is_dir($dir)) {
-                    $objects = scandir($dir);
-                    foreach ($objects as $object) {
-                        if ($object != "." && $object != "..") {
-                            if (filetype($dir . "/" . $object) == "dir") rrmdir($dir . "/" . $object);
-                            else unlink($dir . "/" . $object);
-                        }
-                    }
-                    reset($objects);
-                    rmdir($dir);
-                }
-            }
+
 
             rrmdir("../users/$autor/$titulo/");
             $sql = "DELETE FROM preview WHERE preview_resumo = '$titulo'";
@@ -140,7 +140,7 @@ class CPostagem
     public function updatePostagem(int $postagemID, string $resumo, string $ntitulo, string $otitulo, int $userID)
     {
         $autor = $this->getAutor($userID);
-        rename( "../users/$autor/$otitulo/", "../users/$autor/$ntitulo/");
+        rename("../users/$autor/$otitulo/", "../users/$autor/$ntitulo/");
 
         $previewfoto = "../users/$autor/$ntitulo/homi.jpg";
         $sql = "UPDATE preview SET preview_resumo = '$ntitulo', preview_foto = '$previewfoto' WHERE preview_resumo = '$otitulo'";
