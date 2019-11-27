@@ -2,12 +2,15 @@
 session_start();
 include "../includes/connection.php";
 include "../includes/CrudPostagem.class.php";
+include "../includes/CrudFotos.class.php";
 include "../includes/Server.class.php";
 
 $usuario_logado = Server::userIsLogged();
 
+
 if (!$usuario_logado) header("Location: ./login.php");
 $crud = new CPostagem($conn);
+$cf = new CFoto($conn);
 
 $postagens = $crud->getPostagemIdByUser($_SESSION['id']);
 
@@ -20,34 +23,30 @@ $postagens = $crud->getPostagemIdByUser($_SESSION['id']);
 </head>
 
 <body>
-    <?php if(isset($_GET['salva'])):?>
+    <?php if (isset($_GET['salva'])) : ?>
         <script>
-            M.toast({html: 'Postagem Salva!'})
+            M.toast({
+                html: 'Postagem Salva!'
+            })
         </script>
-    <?php endif;?>
+    <?php endif; ?>
     <?php include "./Components/header.php" ?>
     <div class="container">
         <ul class="collapsible">
             <?php if ($postagens) : foreach ($postagens as $id) : ?>
                     <?php
-
+                            $fotos = $cf->getFotoArquivos($id);
                             $postagem = $crud->getPostagem($id);
                             $titulo = $postagem['postagem_titulo'];
                             $resumo = $postagem['postagem_resumo'];
                             $data = $postagem['postagem_data'];
-
+                            $autor = $crud->getAutor($postagem['usuario_id']);
+                            
                             ?>
                     <li>
-                        <div class="collapsible-header" id="header_postagem<?= $id ?>">
-                            <div class="row">
-                                <span class="col s12 m8">
-                                    <?= $titulo ?>
-                                </span>
-                                <span class="col s12 m4">
-                                    <?= $data ?>
-                                </span>
-
-                            </div>
+                        <div class="collapsible-header row" id="header_postagem<?= $id ?>">
+                            <h5 class="col m6"><?= $titulo ?></h5>
+                            <h6 class="col m6"><?= $data ?></h6>
                         </div>
                         <div class="collapsible-body white" id="body_postagem<?= $id ?>">
                             <form action="./salvar_postagem.php" method="post">
@@ -63,6 +62,14 @@ $postagens = $crud->getPostagemIdByUser($_SESSION['id']);
                                     <input type="hidden" name="otitulo" value="<?= $titulo ?>">
                                     <input type="hidden" name="id" value="<?= $id ?>">
                                 </table>
+                                <div class="row">
+                                <?php foreach ($fotos as $arquivo) : ?>
+                                    <?php
+                                        $path = "../users/$autor/$titulo/$arquivo";
+                                    ?>
+                                    <img src="<?= $path ?>" class="responsive-img col s12 m6">
+                                <?php endforeach ?>
+                                </div>  
                                 <div class="row">
                                     <div class="col m6">
                                         <input type="submit" class="btn" value="Salvar alterações">
@@ -88,6 +95,7 @@ $postagens = $crud->getPostagemIdByUser($_SESSION['id']);
 
     </div>
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             const options = {};
             var elems = document.querySelectorAll('.collapsible');

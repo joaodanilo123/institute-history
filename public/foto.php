@@ -3,6 +3,7 @@ include '../includes/CrudPostagem.class.php';
 include '../includes/CrudFotos.class.php';
 include '../includes/Server.class.php';
 include '../includes/connection.php';
+include '../includes/listarComentario.php';
 
 session_start();
 $usuario_logado = Server::userIsLogged();
@@ -48,7 +49,7 @@ $curtidas = $cPostagem->getCurtidas($_GET['id']);
             <h2 class="center"><?= $titulo ?></h2>
         </div>
         <div class="row">
-            <div class="col s12 m8 offset-m2 resumo">
+            <div class="col s12 m10 offset-m1 resumo">
                 <p>
                     <?= $resumo ?>
                 </p>
@@ -70,7 +71,7 @@ $curtidas = $cPostagem->getCurtidas($_GET['id']);
                 </div>
             <?php endforeach ?>
         </div>
-        
+
         <div class="divider"></div>
         <div class="row">
             <?php if ($usuario_logado) : ?>
@@ -81,24 +82,58 @@ $curtidas = $cPostagem->getCurtidas($_GET['id']);
                     </div>
                 </div>
                 <div class="card-panel col s8 row">
-                    <div class="row col s12 valign-wrapper">
-                        <div class="input-field col s10">
-                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                            <label for="textarea1">Escreva um comentário</label>
-                        </div>
-                        <div class="col s2">
-                            <button class="btn green ">
-                                <i class="material-icons">send</i>
-                            </button>
-                        </div>
+                    <div class="col s12">
+                        <form class="row col s12 valign-wrapper" action="../includes/comentar.php" method="post">
+                            <div class="col s10 input-field">
+                                <textarea id="textarea1" name="comentario" required class="materialize-textarea"></textarea>
+                                <label for="textarea1">Escreva um comentário</label>
+                            </div>
+                            <input type="hidden" name="postagem" value="<?= $_GET['id'] ?>">
+                            <input type="submit" class="btn green material-icons" value="send">
+                        </form>
                     </div>
                 </div>
                 <div class="col s2">
                     <div class="card-panel center">
-                        <button title="Denunciar postagem" class="btn-floating btn-large waves-effect waves-light curtir red" onclick="denucia()" ><i class="material-icons">flag</i></button>
+                        <a class="modal-trigger btn-floating btn-large waves-effect waves-light curtir red" href="#modaldenuncia"><i class="material-icons">flag</i></a>
+                        <form action="../includes/denunciar.php" id="modaldenuncia" class="modal" method="post">
+                            <div class="modal-content">
+                                <h4>Denunciar postagem</h4>
+                                <div class="row">
+                                    <div class="input-field">
+                                        <input type="text" name="motivo" id="motivo">
+                                        <label for="motivo">Qual o motivo da denuncia?</label>
+                                    </div>
+                                    <input type="hidden" name="postagem" value="<?=$_GET['id']?>">         
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" class="modal-action modal-close waves-effect waves-red btn red darken-3" value="Confirmar">
+                                <a href="#!" class="modal-action modal-close waves-effect waves-red btn red darken-3">Cancelar</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             <?php endif; ?>
+            <div class="row">
+                <ul class="collection col s12">
+                    <?php
+                    $comentarios = listarComentario($_GET['id']);
+        
+                    foreach ($comentarios as $comentario) :
+                        $autor = $cPostagem->getAutor($comentario['usuario_id']);
+                        $foto = $comentario['foto'];
+                        $src = "../users/$autor/$foto";
+                        ?>
+                        <li class="collection-item avatar">
+                            <img src="<?= $src ?>" class="circle">
+                            <span class="title"><?= $autor  ?></span>
+                            <p><?= $comentario['c_texto'] ?></p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+            </div>
         </div>
     </div>
 
